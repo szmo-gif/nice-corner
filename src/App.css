@@ -1,0 +1,16 @@
+:root{
+    --primary-color: #A9C8CD;
+    --white : #ffffff;
+    --black : #000000;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    font-family: sans-serif;
+    background-color: var(--primary-color);
+}

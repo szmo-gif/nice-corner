@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
+import './map.css';
 
 // Correction de l'icône de marqueur manquante
 delete L.Icon.Default.prototype._getIconUrl;
@@ -41,6 +42,7 @@ const MapComponent = () => {
   }
 
   return (
+    <div className="map-container">
     <MapContainer center={position} zoom={13} style={{ height: '100vh', width: '100%' }}>
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -52,6 +54,7 @@ const MapComponent = () => {
         </Popup>
       </Marker>
     </MapContainer>
+    </div>
   );
 };
 
