@@ -1,21 +1,34 @@
-import './login.css'
+import React, { useState } from 'react';
+import Modal from '../../compoments/add-user/AddUser';
+import './login.css';
 
-export default function Login() {
+function Login() {
+  const [showModal, setShowModal] = useState(false);
+
+  const handleOpen = () => {
+    setShowModal(true);
+  };
+
+  const handleClose = () => {
+    setShowModal(false);
+  };
+
   return (
-    <form className="login-form">
-      <a href="#">créer un compte</a>
-      <h1>se connecter</h1>
-
-      <label htmlFor="username">Nom d'utilisateur</label>
-      <input type="text" id="username" name="username" />
-
-      <label htmlFor="password">Mot de passe</label>
-      <input type="password" id="password" name="password" />
-
-      <button type="submit">Se connecter</button>
-
-      <a href="#">Mot de passe oublie?</a>
-
-    </form>
-  )
+    
+    <form className='login-form'>
+      <h1>Connexion</h1>
+        <label htmlFor="username">Nom d'utilisateur:</label>
+        <input type="text" id="username" name="username" required />
+        
+        <label htmlFor="password">Mot de passe:</label>
+        <input type="password" id="password" name="password" required />
+        
+        <button type="submit">Se connecter</button>
+        <a href="#" onClick={handleOpen}>Créer un compte</a>
+      <Modal show={showModal} handleClose={handleClose} />
+      </form>
+    
+  );
 }
+
+export default Login;
