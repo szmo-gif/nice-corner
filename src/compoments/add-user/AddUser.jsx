@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth, db } from '../../../firebase';
+import { doc, setDoc } from "firebase/firestore";
 import '../../pages/login/login.css';
 import './add-user.css';
-import axios from 'axios';
 
 function AddUser({ show, handleClose }) {
   const [username, setUsername] = useState('');
@@ -13,19 +15,18 @@ function AddUser({ show, handleClose }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
-      const response = await axios.post('http://localhost:5000/api/auth/register', {
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+      await setDoc(doc(db, "users", user.uid), {
         username,
-        password,
+        email
       });
-
-      setMessage(response.data);
+      setMessage("Utilisateur créé avec succès !");
     } catch (error) {
-      setMessage(error.response.data);
+      setMessage(error.message);
     }
   };
-
 
   return (
     <div className={showHideClassName}>
@@ -34,26 +35,27 @@ function AddUser({ show, handleClose }) {
         <form onSubmit={handleSubmit} className='login-form'>
           <label htmlFor="username">Nom d'utilisateur:</label>
           <input
-              type="text"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              required
-            />
+            type="text"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            required
+          />
           
           <label htmlFor="email">Email:</label>
-          <input type="email" 
-              value={email} 
-              onChange={(e) => setEmail(e.target.value)} 
-              required
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
           />
           
           <label htmlFor="password">Mot de passe:</label>
           <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
           
           <button type="submit">Créer</button>
           <button type="button" onClick={handleClose} className='close'>&times;</button>

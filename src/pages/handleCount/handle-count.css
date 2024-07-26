@@ -1,0 +1,17 @@
+.handle-count {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+
+    button {
+        padding: 10px;
+        border-radius: 5px;
+        border: none;
+        background-color: var(--button-color);
+        color: #fff;
+        cursor: pointer;
+    }
+}
