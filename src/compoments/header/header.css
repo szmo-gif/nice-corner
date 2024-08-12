@@ -2,7 +2,7 @@
     display: flex;
 
     img{
-        width: 27%;
+        width: 15rem;
         object-fit: cover;
         margin: auto;
     }
